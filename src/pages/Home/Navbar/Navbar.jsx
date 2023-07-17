@@ -9,6 +9,7 @@ const Navbar = () => {
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
   return (
     <nav className="bg-gray-800">
       <div className="max-w-7xl mx-auto p-4 sm:px-6 lg:px-8">
