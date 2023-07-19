@@ -2,9 +2,12 @@ import { useState } from "react";
 import { FaBars, FaRegTimesCircle } from "react-icons/fa";
 import logo from "../../../assets/logo.jpg";
 import { Link } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const {user} = useAuth();
+  console.log(user)
 
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -31,7 +34,7 @@ const Navbar = () => {
                 <Link className="text-gray-300 hover:text-white px-3 py-2 rounded-md font-medium">
                   About
                 </Link>
-                <Link className="text-gray-300 hover:text-white px-3 py-2 rounded-md font-medium">
+                <Link to="/login" className="text-gray-300 hover:text-white px-3 py-2 rounded-md font-medium">
                   Login
                 </Link>
               </div>

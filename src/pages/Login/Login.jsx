@@ -17,7 +17,7 @@ const Login = () => {
         try {
           const response = await axios.post('http://localhost:5000/login', data);
           const { token } = response.data;
-          localStorage.setItem('token', token);
+          localStorage.setItem('access-token', token);
           console.log(data);
           navigate('/');
         } catch (error) {
@@ -73,9 +73,8 @@ const Login = () => {
           <input
             className="bg-emerald-500 text-white py-2 px-4 rounded-md hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-500 mt-3"
             type="submit"
-            value="Register"
+            value="Login"
           />
-          <button type="submit">Login</button>
         </div>
       </form>
       <p className="text-center py-5 text-lg font-medium text-white">

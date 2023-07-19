@@ -8,7 +8,7 @@ const Register = () => {
     register,
     handleSubmit,
     formState: { errors },
-    reset
+    reset,
   } = useForm();
 
   const onSubmit = async (data) => {
@@ -16,25 +16,27 @@ const Register = () => {
     try {
       const response = await axios.post("http://localhost:5000/register", data);
       const { token } = response.data;
-      localStorage.setItem('token', token);
+      localStorage.setItem("token", token);
       console.log(response);
-      reset();
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'User registration completed ',
-        showConfirmButton: false,
-        timer: 1500
-      })
+      if (response.data.user.insertedId) {
+        reset();
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "User registration completed ",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
     } catch (error) {
       console.error("Registration error", error);
       Swal.fire({
-        position: 'top-end',
-        icon: 'error',
+        position: "top-end",
+        icon: "error",
         title: `Registration error: ${error.response.data.message}`,
         showConfirmButton: false,
-        timer: 1500
-      })
+        timer: 1500,
+      });
     }
   };
 
