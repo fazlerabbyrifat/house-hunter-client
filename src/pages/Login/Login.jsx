@@ -15,7 +15,7 @@ const Login = () => {
     
       const onSubmit = async (data) => {
         try {
-          const response = await axios.post('http://localhost:5000/login', data);
+          const response = await axios.post('https://house-hunter-server-fazlerabbyrifat.vercel.app/login', data);
           const { token } = response.data;
           localStorage.setItem('access-token', token);
           console.log(data);
