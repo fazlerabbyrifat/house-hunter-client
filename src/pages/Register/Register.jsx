@@ -14,7 +14,10 @@ const Register = () => {
   const onSubmit = async (data) => {
     console.log(data);
     try {
-      const response = await axios.post("http://localhost:5000/register", data);
+      const response = await axios.post(
+        "https://house-hunter-server-fazlerabbyrifat.vercel.app/register",
+        data
+      );
       const { token } = response.data;
       localStorage.setItem("token", token);
       console.log(response);
