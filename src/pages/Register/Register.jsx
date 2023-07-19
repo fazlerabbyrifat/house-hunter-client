@@ -1,23 +1,40 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Register = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset
   } = useForm();
 
   const onSubmit = async (data) => {
     console.log(data);
     try {
-      const response = await axios.post("/api/register", data);
-      console.log(response.data);
-      alert("Registration successful!");
+      const response = await axios.post("http://localhost:5000/register", data);
+      const { token } = response.data;
+      localStorage.setItem('token', token);
+      console.log(response);
+      reset();
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'User registration completed ',
+        showConfirmButton: false,
+        timer: 1500
+      })
     } catch (error) {
       console.error("Registration error", error);
-      alert("Registration failed. Please try again later.");
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: `Registration error: ${error.response.data.message}`,
+        showConfirmButton: false,
+        timer: 1500
+      })
     }
   };
 
@@ -57,8 +74,8 @@ const Register = () => {
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             {...register("role", { required: true })}
           >
-            <option value="House Owner">House Owner</option>
-            <option value="House Renter">House Renter</option>
+            <option value="Owner">House Owner</option>
+            <option value="Renter">House Renter</option>
           </select>
           {errors.role && (
             <span className="text-red-500">{errors.role.message}</span>
@@ -141,7 +158,7 @@ const Register = () => {
       <p className="text-center py-5 text-lg font-medium text-white">
         Already Registered User?{" "}
         <span className="text-primary">
-          <Link>Please Login</Link>
+          <Link to="/login">Please Login</Link>
         </span>
       </p>
     </div>
